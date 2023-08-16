@@ -1,17 +1,30 @@
 {
   "name": "cash-exchange",
   "version": "1.0.0",
-  "description": "",
+  "description": "cash-exchange ",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devCo-Inc/cash-exchange.git"
+  },
+  "keywords": [
+    "cash"
+  ],
+  "author": "Lacey,Julio,and Jonathan",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devCo-Inc/cash-exchange/issues"
+  },
+  "homepage": "https://github.com/devCo-Inc/cash-exchange#readme",
   "dependencies": {
+    "chance": "^1.1.11",
+    "concurrently": "^8.2.0",
     "jest": "^29.6.2",
     "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "supertest": "^6.3.3"
   }
 }

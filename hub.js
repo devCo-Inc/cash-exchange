@@ -1,6 +1,7 @@
+
 const { Server } = require('socket.io');
 const { EventNames } = require('./utilities');
-
+const { chance } = require('./utilities');
 const io = new Server();
 
 io.listen(3000);
@@ -32,6 +33,8 @@ function handleConnection(socket) {
 
 function startServer() {
   console.log('The server has been started');
+  const name = chance.name();
+  console.log(`Hello, ${name}!`);
   caps.on('connection', handleConnection);
 }
 
@@ -42,3 +45,4 @@ module.exports = {
   io,
   caps,
 };
+
