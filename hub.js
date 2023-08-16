@@ -6,7 +6,7 @@ io.listen(3000);
 
 const caps = io.of('/caps');
 
-function handleSend(payload) {
+function handleSend(payload, socket) {
   console.log('The money has been sent', payload.transactionId);
   socket.emit('send', { message: 'sent acknowledged' });
   caps.emit(EventNames.received, {
