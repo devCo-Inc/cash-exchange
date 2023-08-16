@@ -1,8 +1,9 @@
-const chance = require('chance').Chance();
+const chance = require('chance')();
 
-const eventListner = {
-  send: 'sending',
-  receive: 'received',
+const EventNames = {
+  send: 'send',
+  // inTransit: 'inTransit',
+  received: 'received',
 };
 
-module.exports = { chance, eventListner };
+module.exports = { chance, EventNames };
