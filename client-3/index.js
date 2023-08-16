@@ -1,4 +1,4 @@
-const { io } = require('socket.io-client');
+const { io } = require('socket.io-client
 const events = io('ws://localhost:3000');
 const { chance, eventListner } = require('../utils');
 
@@ -26,3 +26,8 @@ function sendEvent() {
 }
 sendEvent();
 eventListner(events);
+
+const {startClient} = require('./handlers');
+
+
+startClient(client);
