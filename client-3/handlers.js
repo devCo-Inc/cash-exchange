@@ -7,7 +7,7 @@ const { EventNames } = require('../utilities');
 const Chance = require('chance');
 const chance = new Chance();
 
-function sendEvent() {
+function sendEvent(client) {
   const event = {
     name: chance.name(),
     account: chance.integer({ min: 1, max: 100 }),
@@ -19,7 +19,6 @@ function sendEvent() {
   };
 
   const payload = {
-
     event: 'deposit',
     date: event.date,
     account: event.account,
@@ -29,20 +28,9 @@ function sendEvent() {
   console.log(
     `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
   );
-  events.emit(EventNames.send, payload);
+  client.emit(EventNames.send, payload);
 }
 
-// function startClient(client) {
-//   console.log('Client 3 started ...');
-//   client.emit(EventNames.receive, (payload) =>
-//     console.log(`Client 3 - ${payload} has been received`)
-//   );
-//   function ready() {
-//     sendEvent();
-//     setTimeout(ready, chance.integer({ min: 1000, max: 5000 }));
-//   }
-//   ready();
-// }
 function startClient(client) {
   console.log('Client 3 started ...');
   client.emit(EventNames.receive, (payload) =>
@@ -58,7 +46,7 @@ function startClient(client) {
       return; // Exit the loop
     }
 
-    sendEvent();
+    sendEvent(client);
     setTimeout(() => {
       loopCounter++;
       ready(); // Continue the loop
@@ -70,4 +58,3 @@ function startClient(client) {
 module.exports = {
   startClient,
 };
-

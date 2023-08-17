@@ -17,11 +17,9 @@ function handleSend(payload, socket) {
 }
 
 function handleDelivered(payload) {
-
   console.log(`the money for ${payload.name} has been received`);
   caps.emit(EventNames.received, {
     orderId: payload.transactionId,
-
   });
 }
 
