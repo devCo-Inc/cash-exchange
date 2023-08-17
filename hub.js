@@ -1,15 +1,15 @@
-
 const { Server } = require('socket.io');
 const { EventNames } = require('./utilities');
-const { chance } = require('./utilities');
 const io = new Server();
 
 io.listen(3000);
 
 const caps = io.of('/caps');
 
-function handleSend(payload, socket) {
-  console.log('The money has been sent', payload.orderId);
+
+function handleSend(payload) {
+  console.log('The money has been sent', payload.transactionId);
+
   socket.emit('send', { message: 'sent acknowledged' });
   caps.emit(EventNames.received, {
     message: ' The money is ready to be received',
@@ -18,9 +18,11 @@ function handleSend(payload, socket) {
 }
 
 function handleDelivered(payload) {
-  console.log(`the money for ${payload.customerId} has been received`);
+
+  console.log(`the money for ${payload.name} has been received`);
   caps.emit(EventNames.received, {
-    orderId: payload.orderId,
+    orderId: payload.transactionId,
+
   });
 }
 
@@ -43,4 +45,3 @@ module.exports = {
   io,
   caps,
 };
-
