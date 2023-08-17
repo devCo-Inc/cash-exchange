@@ -1,6 +1,7 @@
 'use strict';
 const { EventNames, chance } = require('../utilities');
 
+
 const event = {
   name: chance.name(),
   account: chance.integer({ min: 1, max: 100 }),
@@ -32,7 +33,7 @@ function sendEvent(client) {
  
 
 function startClient(client) {
-  console.log('Client 3 started ...');
+  console.log('Client 4 started ...');
   let loopCounter = 0;
   const maxLoopIterations = 10; // Set the desired number of iterations
 
@@ -41,6 +42,7 @@ function startClient(client) {
       console.log('Max Transaction Meet For The Day.');
       return; // Exit the loop
     }
+
     sendEvent(client);
     setTimeout(() => {
       loopCounter++;

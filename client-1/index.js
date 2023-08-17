@@ -1,9 +1,7 @@
-'use strict';
-
 const { io } = require('socket.io-client');
-const {startClient} = require('./handlers');
 
-const client = io('ws//localhost:3000');
+const events = io('ws://localhost:3000/caps');
 
-startClient(client);
+const { startClient } = require('./handlers');
 
+startClient(events);
