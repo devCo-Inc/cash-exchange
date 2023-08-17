@@ -1,4 +1,5 @@
 'use strict';
+
 const { io } = require('socket.io-client');
 const events = io('ws://localhost:3000');
 const { EventNames } = require('../utilities');
@@ -12,11 +13,13 @@ function sendEvent() {
     account: chance.integer({ min: 1, max: 100 }),
     amount: chance.dollar(),
     date: chance.date({ string: true }),
+
     type: chance.pickone(['deposit', 'withdraw']),
     transactionId: chance.guid(),
   };
 
   const payload = {
+
     event: 'deposit',
     date: event.date,
     account: event.account,
@@ -67,3 +70,4 @@ function startClient(client) {
 module.exports = {
   startClient,
 };
+
