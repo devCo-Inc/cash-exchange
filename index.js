@@ -1,5 +1,5 @@
 
-const { startEventServer } = require('./hub');
+const { startServer } = require('./hub');
 
-startEventServer();
+startServer();
 

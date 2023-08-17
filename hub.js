@@ -8,10 +8,10 @@ io.listen(3000);
 
 const caps = io.of('/caps');
 
-function handleSend(payload) {
+function handleSend(payload, socket) {
   console.log('The money has been sent', payload.orderId);
   socket.emit('send', { message: 'sent acknowledged' });
-  caps.emit(events.received, {
+  caps.emit(EventNames.received, {
     message: ' The money is ready to be received',
     ...payload,
   });
@@ -19,7 +19,7 @@ function handleSend(payload) {
 
 function handleDelivered(payload) {
   console.log(`the money for ${payload.customerId} has been received`);
-  caps.emit(events.received, {
+  caps.emit(EventNames.received, {
     orderId: payload.orderId,
   });
 }
@@ -27,14 +27,12 @@ function handleDelivered(payload) {
 function handleConnection(socket) {
   console.log('we have a new connection', socket.id);
 
-  socket.on(events.send, (payload) => handleSend(payload, socket));
-  socket.on(events.received, handleDelivered);
+  socket.on(EventNames.send, (payload) => handleSend(payload, socket));
+  socket.on(EventNames.received, handleDelivered);
 }
 
 function startServer() {
   console.log('The server has been started');
-  const name = chance.name();
-  console.log(`Hello, ${name}!`);
   caps.on('connection', handleConnection);
 }
 

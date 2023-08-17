@@ -1,6 +1,9 @@
-const { io } = require('socket.io-client
+'use strict';
+
+const { io } = require('socket.io-client');
+const { chance, EventNames } = require('../utilities');
+const {eventListener} = require('./handlers');
 const events = io('ws://localhost:3000');
-const { chance, eventListner } = require('../utils');
 
 function sendEvent() {
   const event = {
@@ -9,7 +12,7 @@ function sendEvent() {
     amount: chance.integer({ min: 1, max: 1000 }),
     date: chance.date({ string: true }),
     type: chance.pickone(['deposit', 'withdraw']),
-    transationId: chance.guid(),
+    transactionId: chance.guid(),
   };
 
   const payload = {
@@ -17,17 +20,13 @@ function sendEvent() {
     date: event.date,
     account: event.account,
     amount: event.amount,
-    transationId: event.transationId,
+    transactionId: event.transactionId,
   };
   console.log(
     `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount}`
   );
   events.emit('deposit', payload);
 }
+
 sendEvent();
-eventListner(events);
-
-const {startClient} = require('./handlers');
-
-
-startClient(client);
+eventListener(events);
