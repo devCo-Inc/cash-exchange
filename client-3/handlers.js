@@ -19,12 +19,12 @@ function sendEvent() {
   };
 
   const payload = {
-
     event: 'deposit',
     date: event.date,
     account: event.account,
     amount: event.amount,
     transactionId: event.transactionId,
+    client: EventNames.client3
   };
   console.log(
     `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
