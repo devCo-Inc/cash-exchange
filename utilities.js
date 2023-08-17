@@ -1,9 +1,11 @@
+const chance = require('chance')();
+
 const EventNames = {
   send: 'send',
   // inTransit: 'inTransit',
   received: 'received',
 
-  disconnect: 'disconnect',
+  connect: 'client',
   // disconnects from room
 
   client1: 'Bob',
@@ -13,4 +15,4 @@ const EventNames = {
 // used to connect to each clients room.
 };
 
-module.exports = { EventNames };
+module.exports = { EventNames, chance };

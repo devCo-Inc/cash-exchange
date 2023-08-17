@@ -1,43 +1,39 @@
 'use strict';
+const { EventNames, chance } = require('../utilities');
 
-const { io } = require('socket.io-client');
-const events = io('ws://localhost:3000');
-const { EventNames } = require('../utilities');
 
-const Chance = require('chance');
-const chance = new Chance();
+const event = {
+  name: chance.name(),
+  account: chance.integer({ min: 1, max: 100 }),
+  amount: chance.dollar(),
+  date: chance.date({ string: true }),
+  type: chance.pickone(['deposit', 'withdraw']),
+  transactionId: chance.guid(),
+};
+
+const payload = {
+  event: 'deposit',
+  date: event.date,
+  account: event.account,
+  amount: event.amount,
+  transactionId: event.transactionId,
+  client: EventNames.client4
+};
+
 
 function sendEvent(client) {
-  const event = {
-    name: chance.name(),
-    account: chance.integer({ min: 1, max: 100 }),
-    amount: chance.dollar(),
-    date: chance.date({ string: true }),
-
-    type: chance.pickone(['deposit', 'withdraw']),
-    transactionId: chance.guid(),
-  };
-
-  const payload = {
-    event: 'deposit',
-    date: event.date,
-    account: event.account,
-    amount: event.amount,
-    transactionId: event.transactionId,
-    client: EventNames.client4,
-  };
   console.log(
-    `Client 4 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
+    `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
   );
-  client.emit(EventNames.send, payload);
+  client.emit(EventNames.connect, payload.client);
+  client.emit(EventNames.send, {target:EventNames.client1, ...payload});
+  client.emit(EventNames.send, {target:EventNames.client2, ...payload});
 }
+
+ 
 
 function startClient(client) {
   console.log('Client 4 started ...');
-  client.emit(EventNames.receive, (payload) =>
-    console.log(`Client 4 - ${payload} has been received`)
-  );
-
   let loopCounter = 0;
   const maxLoopIterations = 10; // Set the desired number of iterations
 

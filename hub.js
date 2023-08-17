@@ -21,7 +21,9 @@ function handleSend(payload, socket) {
   else if (payload.target === EventNames.client4){
     io.to(EventNames.client4).emit(EventNames.client4, payload);
   }
+  // if statement that connects them socket to room based off there target in the payload
   socket.emit('send', { message: 'sent acknowledged' });
+  // sends back to the socket that the message has been received 
   caps.emit(EventNames.received, {
     message: ' The money is ready to be received',
     ...payload,
@@ -37,7 +39,8 @@ function handleDelivered(payload) {
 
 function handleConnection(socket) {
   console.log('we have a new connection', socket.id);
-  socket.on('client', (client) => {
+  socket.on(EventNames.connect, (client) => {
+    console.log('++++ from connect listener',client);
     if(client === EventNames.client1){
       socket.join(EventNames.client1);
     }
@@ -50,6 +53,7 @@ function handleConnection(socket) {
     else if(client === EventNames.client4){
       socket.join(EventNames.client4);
     }
+    // adds clients to there unique room for individual communications
   });
   socket.on(EventNames.send, (payload) => handleSend(payload, socket));
   socket.on(EventNames.received, handleDelivered);
