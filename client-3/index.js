@@ -2,6 +2,7 @@
 'use strict';
 
 const { io } = require('socket.io-client');
+
 const { chance, EventNames } = require('../utilities');
 const {eventListener} = require('./handlers');
 const events = io('ws://localhost:3000');
@@ -36,4 +37,5 @@ eventListener(events);
 const { startClient } = require('./handlers');
 
 startClient(client);
+
 
