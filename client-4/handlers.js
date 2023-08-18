@@ -1,7 +1,6 @@
 'use strict';
 const { EventNames, chance } = require('../utilities');
 
-
 const event = {
   name: chance.name(),
   account: chance.integer({ min: 1, max: 100 }),
@@ -17,20 +16,17 @@ const payload = {
   account: event.account,
   amount: event.amount,
   transactionId: event.transactionId,
-  client: EventNames.client4
+  client: EventNames.client4,
 };
-
 
 function sendEvent(client) {
   console.log(
-    `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
+    `Client 4 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
   );
   client.emit(EventNames.connect, payload.client);
-  client.emit(EventNames.send, {target:EventNames.client1, ...payload});
-  client.emit(EventNames.send, {target:EventNames.client2, ...payload});
+  client.emit(EventNames.send, { target: EventNames.client1, ...payload });
+  client.emit(EventNames.send, { target: EventNames.client2, ...payload });
 }
-
- 
 
 function startClient(client) {
   console.log('Client 4 started ...');

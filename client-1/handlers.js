@@ -16,20 +16,18 @@ const payload = {
   account: event.account,
   amount: event.amount,
   transactionId: event.transactionId,
-  client: EventNames.client3
+  client: EventNames.client3,
 };
-
 
 function sendEvent(client) {
   console.log(
-    `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
+    `Client 1 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
   );
   client.emit(EventNames.connect, payload.client);
-  client.emit(EventNames.send, {target:EventNames.client3, ...payload});
-  client.emit(EventNames.send, {target:EventNames.client2, ...payload});
+  client.emit(EventNames.send, { target: EventNames.client3, ...payload });
+  client.emit(EventNames.send, { target: EventNames.client2, ...payload });
 }
 
- 
 function startClient(client) {
   console.log('Client 1 started ...');
   let loopCounter = 0;
@@ -48,7 +46,6 @@ function startClient(client) {
   }
   ready();
 }
-
 
 module.exports = {
   startClient,
