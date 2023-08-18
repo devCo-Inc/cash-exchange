@@ -1,4 +1,3 @@
-
 'use strict';
 const { EventNames, chance } = require('../utilities');
 
@@ -17,20 +16,31 @@ const payload = {
   account: event.account,
   amount: event.amount,
   transactionId: event.transactionId,
-  client: EventNames.client3
+  client: EventNames.client3,
 };
 
-
 function sendEvent(client) {
-  console.log(
-    `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
-  );
-  client.emit(EventNames.connect, payload.client);
-  client.emit(EventNames.send, {target:EventNames.client3, ...payload});
-  client.emit(EventNames.send, {target:EventNames.client4, ...payload});
+  try {
+    console.log(
+      `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
+    );
+
+    client.emit(EventNames.connect, payload.client);
+    client.emit(EventNames.send, { target: EventNames.client3, ...payload });
+    client.emit(EventNames.send, { target: EventNames.client4, ...payload });
+  } catch (error) {
+    console.error(`Error sending event: ${error.message}`);
+  }
 }
 
- 
+// function sendEvent(client) {
+//   console.log(
+//     `Client 3 - ${event.type} - ${event.date} - ${event.account} - ${event.amount} , ${event.transactionId}`
+//   );
+//   client.emit(EventNames.connect, payload.client);
+//   client.emit(EventNames.send, {target:EventNames.client3, ...payload});
+//   client.emit(EventNames.send, {target:EventNames.client4, ...payload});
+// }
 
 function startClient(client) {
   console.log('Client 3 started ...');
